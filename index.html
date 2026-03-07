@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script>
+            async function add(){
+                const a= document.getElementById("A").value;
+                const b= document.getElementById("B").value;
+//client side only// document.getElementById("popup").innerHTML= parseInt(a)+parseInt(b);
+            
+                // const res= await fetch("http://localhost:3016/sum/" +a+ "/"+b)
+                const res= await fetch("http://localhost:3016/sum/" ,{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body :JSON.stringify({
+                        a :a,
+                        b :b
+                    })
+                })
+
+                const json =await res.json();
+                document.getElementById("popup").innerHTML= json.ans;
+
+        }
+        </script>
+        <title>calculator</title>
+        <!-- <link rel="/index.css" res ="stylesheet">  -->
+    </head>
+    <body>
+        <span>
+            <input class= "inputs" id ="A" type="text" placeholder="enter 1st no.">
+            <input class= "inputs" id= "B" type="text" placeholder="enter 2nd no.">
+            
+            <div id="popup"></div>
+        </span>
+
+        <button class="button" id ="sum" onclick="add()">Sum</button>
+        <button class="button">Substract</button>
+        <button class="button">Multiply</button>
+        <button class="button">Divide</button>
+    </body>
+</html>
